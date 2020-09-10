@@ -5,7 +5,7 @@ import { GsaPipelineStack } from '../lib/gsa-pipeline-stack';
 const app = new App();
 
 new GsaPipelineStack(app, 'GsaPipelineStack', {
-  env: { account: 'ACCOUNT1', region: 'us-east-1' },
+  env: { account: '662872024835', region: 'us-east-1' },
 });
 
 app.synth();

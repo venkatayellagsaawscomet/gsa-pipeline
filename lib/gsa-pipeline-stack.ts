@@ -24,8 +24,8 @@ export class GsaPipelineStack extends Stack {
         actionName: 'GitHub',
         output: sourceArtifact,
         oauthToken: SecretValue.secretsManager('github-token'),
-        owner: 'OWNER',
-        repo: 'REPO',
+        owner: 'venkatayellagsaawscomet',
+        repo: 'gsa-pipeline',
       }),
 
        // How it will be built and synthesized
@@ -40,7 +40,7 @@ export class GsaPipelineStack extends Stack {
 
     // This is where we add the application stages
     pipeline.addApplicationStage(new DummyAppStage(this, 'Development', {
-    	env: { account: 'ACCOUNT1', region: 'us-east-1' }
+    	env: { account: '662872024835', region: 'us-east-1' }
     }));
   }
 }
