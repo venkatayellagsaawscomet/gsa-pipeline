@@ -1,3 +1,4 @@
+import * as codecommit from '@aws-cdk/aws-codecommit';
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 import { Construct, SecretValue, Stack, StackProps } from '@aws-cdk/core';
@@ -14,19 +15,23 @@ export class GsaPipelineStack extends Stack {
     const sourceArtifact = new codepipeline.Artifact();
     const cloudAssemblyArtifact = new codepipeline.Artifact();
  
+ 	const repo = new codecommit.Repository(this, 'Repo', {
+ 		repositoryName: 'GsaGenericAppStandAloneRepo'
+ 		//branchName: 'branchnamehere'
+ 	});
+ 
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       // The pipeline name
       pipelineName: 'DummyAppPipeline',
       cloudAssemblyArtifact,
 
       // Where the source can be found
-      sourceAction: new codepipeline_actions.GitHubSourceAction({
-        actionName: 'GitHub',
+      sourceAction: new codepipeline_actions.CodeCommitSourceAction({
+        actionName: 'CodeCommit',
         output: sourceArtifact,
-        oauthToken: SecretValue.secretsManager('github-token'),
-        owner: 'venkatayellagsaawscomet',
-        repo: 'gsa-pipeline',
+        repository: repo
       }),
+
 
        // How it will be built and synthesized
        synthAction: SimpleSynthAction.standardNpmSynth({
