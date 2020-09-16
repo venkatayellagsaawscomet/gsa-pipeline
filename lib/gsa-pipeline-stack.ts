@@ -15,11 +15,16 @@ export class GsaPipelineStack extends Stack {
     const sourceArtifact = new codepipeline.Artifact();
     const cloudAssemblyArtifact = new codepipeline.Artifact();
  
- 	const repo = new codecommit.Repository(this, 'Repo', {
- 		repositoryName: 'GsaGenericAppStandAloneRepo'
- 		//branchName: 'branchnamehere'
- 	});
+ 	  // const repo = new codecommit.Repository(this, 'Repo', {
+ 		//   repositoryName: 'GsaGenericAppStandAloneRepo'
+ 	  // });
  
+    const repo = codecommit.Repository.fromRepositoryName(
+      this, 
+      'ExistingRepo',
+      'GsaGenericAppStandAloneRepo'
+    );
+
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       // The pipeline name
       pipelineName: 'DummyAppPipeline',
@@ -29,7 +34,8 @@ export class GsaPipelineStack extends Stack {
       sourceAction: new codepipeline_actions.CodeCommitSourceAction({
         actionName: 'CodeCommit',
         output: sourceArtifact,
-        repository: repo
+        repository: repo,
+        branch: 'master'
       }),
 
 
