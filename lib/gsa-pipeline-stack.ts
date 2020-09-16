@@ -5,7 +5,7 @@ import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 import { Construct, SecretValue, Stack, StackProps } from '@aws-cdk/core';
 import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
 import { DummyAppStage } from './dummy-app-stage';
-
+//
 /**
  * The stack that defines the application pipeline
  */
@@ -38,8 +38,7 @@ export class GsaPipelineStack extends Stack {
         repository: repo,
         branch: 'master'
       }),
-
-
+      
        // How it will be built and synthesized
        synthAction: SimpleSynthAction.standardNpmSynth({
          sourceArtifact,
